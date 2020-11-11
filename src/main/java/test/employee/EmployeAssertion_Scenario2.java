@@ -3,6 +3,7 @@ package test.employee;
 import commonmethods.Emp_CommonMethods;
 import io.restassured.response.Response;
 import org.junit.Assert;
+import org.testng.Reporter;
 import org.testng.annotations.Test;
 import utilities.ConfigUtils;
 import utilities.ExcelUtils;
@@ -17,31 +18,45 @@ public class EmployeAssertion_Scenario2 extends ExcelUtils {
     ConfigUtils configUtils = new ConfigUtils();
     Response response = null;
 
-    @Test(dataProvider = "EmployeeId", priority = 3,groups = {"getSingleEmpResponse"})
-    public void getEmpApiResponse(HashMap<String, String> testData) throws IOException {
+    @Test(dataProvider = "EmployeeId")
+    public void getSingleEmpApiResponse(HashMap<String, String> testData) throws IOException {
+        Reporter.log("Retrive data from config file");
+        System.out.println("Retrive data from config file");
         String apiURI = configUtils.getPropertyValue("apiURI");
-        String empId = testData.get("Data1");
         String configEndpoint = configUtils.getPropertyValue("getSingleEmployeeEndpoint");
+
+        Reporter.log("Retrive data from Excel file: " + testData.get("Data1"));
+        System.out.println("Retrive data from Excel file: " + testData.get("Data1"));
+        String empId = testData.get("Data1");
         configEndpoint = configEndpoint.replace("{id}", empId);
         String url = apiURI + configEndpoint;
         response = cmnMethod.getApiResponse(url);
-        System.out.println(response);
+
+        Reporter.log("Get single Employee Data");
+        System.out.println("Get single Employee Data");
+        Reporter.log(response.getBody().asString());
+        System.out.println(response.getBody().asString());
     }
 
-    @Test(priority = 4,dependsOnGroups = {"getSingleEmpResponse"})
+    @Test(dependsOnMethods = {"getSingleEmpApiResponse"})
     public void verifyStatusCode() {
-        System.out.println(response.getStatusCode());
         cmnMethod.assertStatusCode(response);
+        Reporter.log("The Status code is: " + response.getStatusCode() + " verified");
+        System.out.println("The Status code is: " + response.getStatusCode() + " verified");
     }
 
-    @Test(priority = 5,dependsOnGroups = {"getSingleEmpResponse"})
+    @Test(dependsOnMethods = {"getSingleEmpApiResponse"})
     public void verifyMessage() {
-        String apiMessage = cmnMethod.getStringfromJson(response,"message");
+        String apiMessage = cmnMethod.getStringfromJson(response, "message");
+        System.out.println("Validate Success Message, Message is: " + apiMessage);
+        Reporter.log("Validate Success Message, Message is: " + apiMessage);
         Assert.assertEquals("Successfully! Record has been fetched.", apiMessage);
     }
 
-    @Test(priority = 6,dependsOnGroups = {"getSingleEmpResponse"})
+    @Test(dependsOnMethods = {"getSingleEmpApiResponse"})
     public void verifyResponsePattern() {
+        System.out.println("Validate Response pattern:      " + response.getBody().asString());
+        Reporter.log("Validate Response pattern:      " + response.getBody().asString());
         response.then().assertThat().body(matchesJsonSchemaInClasspath("response.json"));
     }
 }

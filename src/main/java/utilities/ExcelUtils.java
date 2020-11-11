@@ -33,9 +33,6 @@ public class ExcelUtils {
         try {
 
             FileInputStream ExcelFile = new FileInputStream(FilePath);
-
-            // Access the required test data sheet
-
             ExcelWBook = new XSSFWorkbook(ExcelFile);
 
             ExcelWSheet = ExcelWBook.getSheet(SheetName);
@@ -61,7 +58,6 @@ public class ExcelUtils {
 
                     String cellData = getCellData(i, j);
                     tabArray[ci][cj] = cellData;
-                    System.out.println(cellData);
                     dataList.add(cellData);
 
                 }
@@ -94,7 +90,6 @@ public class ExcelUtils {
 
             Cell = ExcelWSheet.getRow(RowNum).getCell(ColNum);
             int celltype = Cell.getCellType();
-            System.out.println(Cell.getCellType());
 
             int dataType = Cell.getCellType();
 
@@ -108,7 +103,6 @@ public class ExcelUtils {
                     case 0:
                         DataFormatter formatter = new DataFormatter();
                         cellData = formatter.formatCellValue(Cell);
-                        //cellData = Cell.getStringCellValue();
                         break;
                     case 1:
                         cellData = Cell.getStringCellValue();

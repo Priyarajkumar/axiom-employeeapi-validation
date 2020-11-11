@@ -25,9 +25,9 @@ public class EmployeAssertion_Scenario2 extends ExcelUtils {
         String apiURI = configUtils.getPropertyValue("apiURI");
         String configEndpoint = configUtils.getPropertyValue("getSingleEmployeeEndpoint");
 
-        Reporter.log("Retrive data from Excel file: " + testData.get("Data1"));
-        System.out.println("Retrive data from Excel file: " + testData.get("Data1"));
-        String empId = testData.get("Data1");
+        Reporter.log("Retrive data from Excel file: " + testData.get("EmployeeId"));
+        System.out.println("Retrive data from Excel file: " + testData.get("EmployeeId"));
+        String empId = testData.get("EmployeeId");
         configEndpoint = configEndpoint.replace("{id}", empId);
         String url = apiURI + configEndpoint;
         response = cmnMethod.getApiResponse(url);

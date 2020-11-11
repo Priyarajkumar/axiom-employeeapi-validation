@@ -1,0 +1,11 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
+
+<suite name="EmployeesApiAssertion_Suite" verbose="1" >
+    <test name="EmployeesApiAssertion" >
+        <classes>
+            <class name="test.employee.EmployeeAssertion_Scenario1"/>
+            <class name="test.employee.EmployeAssertion_Scenario2"/>
+        </classes>
+    </test>
+</suite>
+

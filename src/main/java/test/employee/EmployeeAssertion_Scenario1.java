@@ -4,14 +4,10 @@ import commonmethods.Emp_CommonMethods;
 import io.restassured.response.Response;
 import org.junit.Assert;
 import org.testng.annotations.Test;
+import utilities.ConfigUtils;
 
 import java.io.IOException;
 import java.util.List;
-
-import static org.hamcrest.Matchers.hasItem;
-import static io.restassured.RestAssured.given;
-
-import utilities.ConfigUtils;
 
 public class EmployeeAssertion_Scenario1 {
     Emp_CommonMethods cmnMethod = new Emp_CommonMethods();

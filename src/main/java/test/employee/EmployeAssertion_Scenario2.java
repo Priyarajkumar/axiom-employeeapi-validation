@@ -3,13 +3,13 @@ package test.employee;
 import commonmethods.Emp_CommonMethods;
 import io.restassured.response.Response;
 import org.junit.Assert;
-import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import utilities.ConfigUtils;
 import utilities.ExcelUtils;
 
 import java.io.IOException;
 import java.util.HashMap;
+
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 
 public class EmployeAssertion_Scenario2 extends ExcelUtils {

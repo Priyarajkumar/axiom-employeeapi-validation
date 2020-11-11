@@ -1,26 +1,21 @@
 package commonmethods;
 
-import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.junit.Assert;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import static org.hamcrest.Matchers.hasItem;
 import static io.restassured.RestAssured.given;
 
 public class Emp_CommonMethods {
 
     public List getValuesfromArray(Response response, String arrayName, String Key) {
-        List<String> values = response.jsonPath().getList(arrayName+"."+Key);
-        return values;
+        return response.jsonPath().getList(arrayName+"."+Key);
     }
 
     public String getStringfromJson(Response response,String Key) {
-        String value = response.jsonPath().getString(Key);
-        return value;
+        return response.jsonPath().getString(Key);
     }
 
     public void assertStatusCode(Response response) {
